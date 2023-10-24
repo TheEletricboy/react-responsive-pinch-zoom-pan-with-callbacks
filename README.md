@@ -14,7 +14,7 @@ On render, the zoom and pan values are applied using CSS transforms.
 
 ## Install
 
-`npm install react-responsive-pinch-zoom-pan --save`
+`npm install react-responsive-pinch-zoom-pan-with-callbacks --save`
 
 ## Try it out
 
@@ -24,8 +24,8 @@ On render, the zoom and pan values are applied using CSS transforms.
 
 ### Local
 
-1. `git clone https://github.com/bradstiff/react-responsive-pinch-zoom-pan.git`
-2. `cd react-responsive-pinch-zoom-pan`
+1. `git clone https://github.com/TheEletricboy/react-responsive-pinch-zoom-pan-with-callbacks.git`
+2. `cd react-responsive-pinch-zoom-pan-with-callbacks`
 3. `npm install`
 4. `npm start`
 5. Browse to http://localhost:3001
@@ -37,9 +37,21 @@ import React from "react";
 import PinchZoomPan from "react-responsive-pinch-zoom-pan";
 
 const App = () => {
+    const handleZoomStart = () => { console.log("ZoomedIn") }
+    const handleZoomEnd = () => { console.log("ZoomedOut") }
+
     return (
         <div style={{ width: '500px', height: '500px' }}>
-            <PinchZoomPan>
+            <PinchZoomPan
+                zoomButtons={ false }
+                initialScale={ 1 }
+                minScale={ 1 }
+                maxScale={ 3 }
+                position={ 'center' }
+                doubleTapBehavior={ 'zoom' }
+                onZoomStart={ handleZoomStart }
+                onZoomEnd={ handleZoomEnd }
+                disableOverzoom >
                 <img alt='Test Image' src='http://picsum.photos/750/750' />
             </PinchZoomPan>
         </div>
@@ -57,10 +69,13 @@ maxScale	| number	| 1			| The maximum scale to which the image can be zoomed in.
 position    | 'center' or 'topLeft'    | 'topLeft'  | Position of the image relative to the container. Applies when the scaled image is smaller than the container.
 zoomButtons	| bool		| true		| Render plus (+) and minus (-) buttons on top of the image as another way to access the zoom feature.
 doubleTapBehavior	| 'reset' or 'zoom' | 'reset'		| Whether to zoom in or reset to initial scale on double-click / double-tap.
+onZoomStart	| function | () => {}		| Callback that fires when the image scale is BIGGER than 1
+onZoomEnd	| function | () => {}		| Callback that fires when the image scale is SMALLER or EQUAL than 1
+disableOverzoom	| bool		| false		| Enables/disables the overzoom feature which is known to sometimes cause unwanted image shift 
 
 ## Development
 
-You're welcome to contribute to react-responsive-pinch-zoom-pan.
+You're welcome to contribute to react-responsive-pinch-zoom-pan-with-callbacks.
 
 To set up the project:
 
